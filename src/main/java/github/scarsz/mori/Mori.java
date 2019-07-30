@@ -26,6 +26,8 @@ public class Mori {
     public Mori(String[] args) throws IOException {
         INSTANCE = this;
 
+        printBanner();
+
         config = new Configuration(new File("config.yml"));
         config.load();
 
@@ -33,6 +35,19 @@ public class Mori {
 
         webServer = new WebServer(this);
         webServer.start();
+    }
+
+    private void printBanner() {
+        String[] lines = new String[]{" ███▄ ▄███▓ ▒█████   ██▀███   ██▓",
+                                      "▓██▒▀█▀ ██▒▒██▒  ██▒▓██ ▒ ██▒▓██▒",
+                                      "▓██    ▓██░▒██░  ██▒▓██ ░▄█ ▒▒██▒",
+                                      "▒██    ▒██ ▒██   ██░▒██▀▀█▄  ░██░",
+                                      "▒██▒   ░██▒░ ████▓▒░░██▓ ▒██▒░██░",
+                                      "░ ▒░   ░  ░░ ▒░▒░▒░ ░ ▒▓ ░▒▓░░▓  ",
+                                      "░  ░      ░  ░ ▒ ▒░   ░▒ ░ ▒░ ▒ ░",
+                                      "░      ░   ░ ░ ░ ▒    ░░   ░  ▒ ░",
+                                      "       ░       ░ ░     ░      ░  "};
+        for (String line : lines) Log.info(line);
     }
 
     public Job enqueue(Action action) {

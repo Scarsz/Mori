@@ -54,7 +54,6 @@ public class Configuration {
     }
 
     public void load() throws IOException {
-        saveDefaultConfig();
         synchronized (values) {
             long timer = System.currentTimeMillis();
             values.clear();

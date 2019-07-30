@@ -9,7 +9,7 @@ public class StaticLoggerBinder implements LoggerFactoryBinder {
     public static String REQUESTED_API_VERSION = "1.6";
     private final ILoggerFactory factory;
 
-    public static final StaticLoggerBinder getSingleton() {
+    public static StaticLoggerBinder getSingleton() {
         return SINGLETON;
     }
 

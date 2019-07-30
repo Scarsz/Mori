@@ -24,6 +24,7 @@ public class WebServer {
             c.addStaticFiles("/public");
             if (new File("public").exists()) c.addStaticFiles("public", Location.EXTERNAL);
             c.prefer405over404 = true;
+            c.showJavalinBanner = false;
         });
         app.before(context -> {
             if (context.userAgent() == null) throw new BadRequestResponse("Missing user agent");

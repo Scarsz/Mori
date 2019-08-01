@@ -58,7 +58,7 @@ public class GitHubHookHandler {
                                             new User(
                                                     d.dget("committer.name").asString(),
                                                     "https://github.com/" + d.dget("committer.username").asString(),
-                                                    null,
+                                                    "https://github.com/" + d.dget("committer.username") + ".png",
                                                     d.dget("committer.email").asString()
                                             ),
                                             d.get("added").asList(),

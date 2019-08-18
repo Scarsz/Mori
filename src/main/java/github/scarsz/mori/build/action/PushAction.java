@@ -1,6 +1,6 @@
 package github.scarsz.mori.build.action;
 
-import github.scarsz.mori.git.User;
+import github.scarsz.mori.git.GitUser;
 import github.scarsz.mori.git.Commit;
 import github.scarsz.mori.git.Repository;
 
@@ -9,16 +9,16 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-public class PushAction implements Action {
+public class PushAction implements IGitUserAction, IAction {
 
     private final Repository repository;
     private final String branch;
-    private final User user;
+    private final GitUser user;
     private final List<Commit> commits;
     private final String beforeHash;
     private final String afterHash;
 
-    public PushAction(Repository repository, String branch, User user, List<Commit> commits, String beforeHash, String afterHash) {
+    public PushAction(Repository repository, String branch, GitUser user, List<Commit> commits, String beforeHash, String afterHash) {
         this.repository = repository;
         this.branch = branch;
         this.user = user;
@@ -35,7 +35,7 @@ public class PushAction implements Action {
         return branch;
     }
 
-    public User getUser() {
+    public GitUser getUser() {
         return user;
     }
 
@@ -51,11 +51,11 @@ public class PushAction implements Action {
         return afterHash;
     }
 
-    public static class Builder implements Action {
+    public static class Builder {
 
         private Repository repository = null;
         private String branch = null;
-        private User user = null;
+        private GitUser user = null;
         private List<Commit> commits = new LinkedList<>();
         private String beforeHash = null;
         private String afterHash = null;
@@ -70,7 +70,7 @@ public class PushAction implements Action {
             return this;
         }
 
-        public Builder user(User user) {
+        public Builder user(GitUser user) {
             this.user = Objects.requireNonNull(user);
             return this;
         }
@@ -115,6 +115,17 @@ public class PushAction implements Action {
             );
         }
 
+    }
+
+    @Override
+    public String toString() {
+        return "PushAction{" +
+                "repository=" + repository +
+                ", branch='" + branch + '\'' +
+                ", user=" + user +
+                ", commits=" + commits.size() +
+                ", hash='" + afterHash + '\'' +
+                '}';
     }
 
 }

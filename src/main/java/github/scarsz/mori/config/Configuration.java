@@ -34,7 +34,7 @@ public class Configuration {
     public void saveDefaultConfig(boolean overwrite) throws IOException {
         if (!source.exists() || overwrite) {
             long timer = System.currentTimeMillis();
-            FileUtils.copyInputStreamToFile(Mori.class.getResourceAsStream("/config.yml"), source);
+            FileUtils.copyInputStreamToFile(Mori.class.getResourceAsStream("/" + source.getName()), source);
             Log.info("Saved default config in " + (System.currentTimeMillis() - timer) + "ms");
         }
     }
@@ -58,11 +58,11 @@ public class Configuration {
             long timer = System.currentTimeMillis();
             values.clear();
             values.putAll(yaml.load(FileUtils.readFileToString(source, "UTF-8")));
-            Log.info("Loaded config in " + (System.currentTimeMillis() - timer) + "ms");
+            Log.info("Loaded config " + source.getPath() + " in " + (System.currentTimeMillis() - timer) + "ms");
         }
     }
 
-    private static final Pattern KEY_PATTERN = Pattern.compile("^[A-z0-9.]+$");
+    private static final Pattern KEY_PATTERN = Pattern.compile("^.+$");
 
     @SuppressWarnings("unchecked")
     public <T> T get(String key) {
@@ -79,6 +79,30 @@ public class Configuration {
                 throw new IllegalArgumentException("Unknown config key " + key);
             }
         }
+    }
+
+    public Dynamic dget(String key) {
+        if (!KEY_PATTERN.matcher(key).matches()) throw new IllegalArgumentException("Invalid config key given: " + key);
+
+        Dynamic value = Dynamic.from(values).dget(key);
+        if (value.isPresent()) {
+            return value;
+        } else {
+            value = Dynamic.from(defaults).dget(key);
+            if (value.isPresent()) {
+                return value;
+            } else {
+                throw new IllegalArgumentException("Unknown config key " + key);
+            }
+        }
+    }
+
+    public Map<String, Object> getValues() {
+        return values;
+    }
+
+    public Map<String, Object> getDefaults() {
+        return defaults;
     }
 
 }

@@ -1,0 +1,15 @@
+# Example repository (copy below & uncomment):
+#DiscordSRV/DiscordSRV:
+#  tools:
+#    - jdk8
+#    - maven
+#  webhook secret: 5c8096cc-2d06-411e-8366-463fc0013c30
+#  instructions:
+#    acquire:
+#      - clone
+#    build:
+#      - maven(clean package)
+#    deploy:
+#      - artifact(target/DiscordSRV*.jar)
+#    notify:
+#      - discord(393152728043487243)

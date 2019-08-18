@@ -3,3 +3,12 @@ web:
 
 discord:
   token:
+
+build:
+  agent:
+    # whether or not the local build agent prints output from builds
+    verbose: false
+  log:
+    format: "[{timestamp} {elapsed}] [{level}] {line}"
+    # http://tutorials.jenkov.com/java-internationalization/simpledateformat.html
+    timestamp: EEE, d. MMM yyyy HH:mm:ss z

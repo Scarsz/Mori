@@ -5,3 +5,6 @@
 .project
 *.iml
 /config.yml
+/repositories.yml
+/jobs
+/tools
